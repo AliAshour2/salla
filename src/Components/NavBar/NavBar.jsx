@@ -77,9 +77,9 @@ function NavBar() {
 
             <ul className="navbar-nav ms-auto">
               <li className="nav-item align-self-center">
-                <i className="fa-brands fa-instagram mx-1"></i>
-                <i className="fa-brands fa-facebook mx-1"></i>
-                <i class="fa-brands fa-linkedin mx-1"></i>
+                <Link to={"https://www.instagram.com"}><i className="fa-brands fa-instagram mx-1"></i></Link>
+                <Link to={"https://www.facebook.com"}><i className="fa-brands fa-facebook mx-1"></i></Link>
+                <Link to={"https://www.linkedin.com"}><i class="fa-brands fa-linkedin mx-1"></i></Link>
               </li>
 
               <li className="nav-item">
