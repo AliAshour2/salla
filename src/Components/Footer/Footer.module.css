@@ -1,1 +1,15 @@
 .Footer {}
+
+
+.paymentIcon{
+    width: 80px;
+}
+
+.ml{
+    margin-left: 12px;
+}
+
+.paymentBorder{
+    border-top: 1px solid #a0a0a093;
+    border-bottom: 1px solid  #a0a0a093 ;
+}
