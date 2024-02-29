@@ -7,7 +7,7 @@ import master from "../assets/images/money.png"
 
 function Footer() {
   return (
-    <footer className="bg-main-light fixed-bottom p-3">
+    <footer className="bg-main-light  p-3">
       <div className="container">
         <h2>Get Salla App</h2>
         <p>We will send you email with link to the app</p>
@@ -19,7 +19,7 @@ function Footer() {
             </label>
             <input
               type="email"
-              className="form-control"
+              className="form-control formControl"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter Your Email"
@@ -30,7 +30,7 @@ function Footer() {
           </div>
           
           
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn bg-main text-white ">
             Submit
           </button>
         </form>
