@@ -3,8 +3,8 @@ import styles from './Register.module.css'
 function Register() {
   return (
     <>
-      <div className="container">
-        
+      <div className="w-75">
+
       </div>
     </>
   )
