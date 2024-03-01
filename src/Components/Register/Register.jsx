@@ -3,7 +3,31 @@ import styles from "./Register.module.css";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 function Register() {
+  let navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function callResigter(reqBody) {
+    console.log(reqBody);
+    let { data } = await axios.post(
+      "https://ecommerce.routemisr.com/api/v1/auth/signup",
+      reqBody
+    ).catch(err => setErrorMessage(err.response.data.message))
+    console.log(data);
+    if (data.message === "success") {
+      navigate("/login");
+    }
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                              Start validation                              */
+  /* -------------------------------------------------------------------------- */
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(3, "Name is to short")
@@ -34,13 +58,26 @@ function Register() {
     },
     validationSchema: validationSchema,
 
-    onSubmit: () => console.log("hddddi"),
+    onSubmit: callResigter,
   });
+  /* -------------------------------------------------------------------------- */
+  /*                               End Validation                               */
+  /* -------------------------------------------------------------------------- */
 
+
+
+
+ 
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                                  Return UI                                 */
+  /* -------------------------------------------------------------------------- */
   return (
     <>
-      <div className="w-50 mx-auto my-5">
+      <div className=" w-50 mx-auto my-5">
         <h2 className="mb-3">Register</h2>
+        {errorMessage ? <div className="alert alert-danger">{errorMessage}</div> : null}
         <form onSubmit={registerForm.handleSubmit}>
           <div className="form-group mb-2">
             <label htmlFor="name" className="form-label mb-1 greenBorder">
@@ -53,7 +90,7 @@ function Register() {
               onBlur={registerForm.handleBlur}
               id="name"
               className={`${styles.formControl} form-control mb-2  `}
-              placeholder="Enter Your Name"
+              placeholder="Name"
             />
             {registerForm.errors.name && registerForm.touched.name ? (
               <div className="alert alert-danger">
@@ -146,6 +183,7 @@ function Register() {
           <button
             type="submit"
             className="btn bg-main text-white d-block ms-auto "
+            disabled={!registerForm.isValid}
           >
             Register
           </button>

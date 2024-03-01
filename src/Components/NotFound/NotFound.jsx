@@ -5,7 +5,7 @@ import error from '../assets/images/error.png'
 function NotFound() {
   return (
     <div className="container ms-auto my-5 d-flex justify-content-center align-items-center">
-      <img className='w-50 ' src={error} alt="" />
+      <img className='w-25 ' src={error} alt="" />
     </div>
   )
 }
