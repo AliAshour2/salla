@@ -8,17 +8,23 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+/* -------------------------------------------------------------------------- */
+/*                           Send Registration Data                           */
+/* -------------------------------------------------------------------------- */
 function Register() {
   let navigate = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   async function callResigter(reqBody) {
     console.log(reqBody);
-    let { data } = await axios.post(
-      "https://ecommerce.routemisr.com/api/v1/auth/signup",
-      reqBody
-    ).catch(err => setErrorMessage(err.response.data.message))
+    setIsLoading(true);
+    let { data } = await axios
+      .post("https://ecommerce.routemisr.com/api/v1/auth/signup", reqBody)
+      .catch((err) => {
+        setIsLoading(false);
+        setErrorMessage(err.response.data.message);
+      });
     console.log(data);
     if (data.message === "success") {
       navigate("/login");
@@ -64,12 +70,6 @@ function Register() {
   /*                               End Validation                               */
   /* -------------------------------------------------------------------------- */
 
-
-
-
- 
-
-
   /* -------------------------------------------------------------------------- */
   /*                                  Return UI                                 */
   /* -------------------------------------------------------------------------- */
@@ -77,7 +77,9 @@ function Register() {
     <>
       <div className=" w-50 mx-auto my-5">
         <h2 className="mb-3">Register</h2>
-        {errorMessage ? <div className="alert alert-danger">{errorMessage}</div> : null}
+        {errorMessage ? (
+          <div className="alert alert-danger">{errorMessage}</div>
+        ) : null}
         <form onSubmit={registerForm.handleSubmit}>
           <div className="form-group mb-2">
             <label htmlFor="name" className="form-label mb-1 greenBorder">
@@ -182,10 +184,10 @@ function Register() {
 
           <button
             type="submit"
-            className="btn bg-main text-white d-block ms-auto "
-            disabled={!registerForm.isValid}
+            className="btn bg-main text-white d-block ms-auto  "
+            disabled={!registerForm.isValid || isLoading}
           >
-            Register
+            {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Register"}
           </button>
         </form>
       </div>
