@@ -1,13 +1,20 @@
 import React, { useContext } from "react";
 import styles from "./NavBar.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/cart.png";
 import Categories from "./../Categories/Categories";
 import { TokenContext } from './../../Context/TokenContext';
 
 
 function NavBar() {
-  let { token } = useContext(TokenContext);
+  let { token  , setToken} = useContext(TokenContext);
+  let navigate =useNavigate()
+  function logOut()
+  {
+    localStorage.removeItem("userToken");
+    setToken(null);
+    navigate("/login");
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -96,9 +103,9 @@ function NavBar() {
 
               {token ? (
                 <li className="nav-item">
-                  <Link className="nav-link" to={"logout"}>
+                  <button onClick={logOut} className="nav-link" >
                     LogOut
-                  </Link>
+                  </button>
                 </li>
               ) : (
                 <>

@@ -10,7 +10,7 @@ import Cart from "./Components/Cart/Cart";
 import Login from "./Components/Login/Login";
 import Register from "./Components/Register/Register";
 import NotFound from "./Components/NotFound/NotFound";
-import TokenContextProvider, { TokenContext } from "./Context/TokenContext";
+import { TokenContext } from "./Context/TokenContext";
 import { useContext, useEffect } from "react";
 
 function App() {
