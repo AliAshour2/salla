@@ -17,7 +17,6 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   async function callResigter(reqBody) {
-    console.log(reqBody);
     setIsLoading(true);
     let { data } = await axios
       .post("https://ecommerce.routemisr.com/api/v1/auth/signup", reqBody)
@@ -185,7 +184,7 @@ function Register() {
           <button
             type="submit"
             className="btn bg-main text-white d-block ms-auto  "
-            disabled={!registerForm.isValid || isLoading}
+            disabled={!registerForm.isValid  || isLoading}
           >
             {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Register"}
           </button>
