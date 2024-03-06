@@ -11,6 +11,9 @@ import "@fortawesome/fontawesome-free/js/all";
 import CounterContextProvider from "./Context/Counter";
 import TokenContextProvider from "./Context/TokenContext";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 /* -------------------------------------------------------------------------- */
 /*                              import libraries                              */
 /* -------------------------------------------------------------------------- */
