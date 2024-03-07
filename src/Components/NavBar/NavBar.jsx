@@ -19,7 +19,7 @@ function NavBar() {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container">
-          <Link className="navbar-brand" href="#">
+          <Link className="navbar-brand fs-3" href="#">
             <img className="w-25" src={logo} alt="" /> Salla
           </Link>
           <button

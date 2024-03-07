@@ -14,17 +14,21 @@ import TokenContextProvider from "./Context/TokenContext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { QueryClient, QueryClientProvider } from "react-query";
 /* -------------------------------------------------------------------------- */
 /*                              import libraries                              */
 /* -------------------------------------------------------------------------- */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+let queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
-    <CounterContextProvider>
+    <QueryClientProvider client={queryClient}>
       <TokenContextProvider>
         <App />
       </TokenContextProvider>
-    </CounterContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

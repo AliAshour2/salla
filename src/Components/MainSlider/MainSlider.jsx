@@ -30,7 +30,7 @@ function MainSlider() {
     <>
       <div className={`slider-container overflow-hidden py-5 ${styles.imgBox}`}>
         <Slider {...settings}>
-          <div>
+          <div className="px-2">
             <div
               className={` ${styles.imgBox} `}
               style={{
@@ -40,6 +40,7 @@ function MainSlider() {
                 backgroundSize: `cover`,
                 overflow: `hidden`,
                 borderRadius: `0.5rem`,
+                backgroundPosition :  `center center`
               }}
             >
               <div className="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-5 px-5 text-xs-center">
@@ -62,7 +63,7 @@ function MainSlider() {
             </div>
           </div>
 
-          <div>
+          <div className="px-2">
             <div
               className={` ${styles.imgBox} `}
               style={{
@@ -72,6 +73,7 @@ function MainSlider() {
                 backgroundSize: `cover`,
                 overflow: `hidden`,
                 borderRadius: `0.5rem`,
+                backgroundPosition :  `center center`
               }}
             >
               <div className="ps-lg-12 py-lg-16 col-xxl-5 col-md-7 py-5 px-5 text-xs-center">

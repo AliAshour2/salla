@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer
-      className="bg-dark p-3"
+      className="bg-dark p-3 pt-2"
       style={{ backgroundImage: `url(${bgImg})`, backgroundSize: "cover" }}
     >
       <div className="container">
