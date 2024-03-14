@@ -43,7 +43,9 @@ function CategoriesSlider() {
     infinite: true,
     speed: 500,
     slidesToShow: 8,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
+    autoplay: true,
+    speed: 2000,
     arrows: true,
     responsive: [
       {

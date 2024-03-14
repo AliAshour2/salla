@@ -12,6 +12,9 @@ import NotFound from "./Components/NotFound/NotFound";
 import { TokenContext } from "./Context/TokenContext";
 import { useContext, useEffect } from "react";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtextedRoutes";
+import ItemDetials from "./Components/ItemDetials/ItemDetials";
+import CheckOut from './Components/CheckOut/CheckOut';
+import Allorders from './Components/Allorders/Allorders';
 
 function App() {
   const routes = createBrowserRouter([
@@ -75,6 +78,31 @@ function App() {
             </ProtectedRoutes>
           ),
         },
+        {
+          path: "details/:id",
+          element: (
+            <ProtectedRoutes>
+              <ItemDetials />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path :"checkout",
+          element:(
+            <ProtectedRoutes>
+              <CheckOut/>
+            </ProtectedRoutes>
+          )
+        },
+        {
+          path :"allorders",
+          element:(
+            <ProtectedRoutes>
+              <Allorders/>
+            </ProtectedRoutes>
+          )
+        }
+    
       ],
     },
   ]);

@@ -1,23 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./NavBar.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/cart.png";
 import Categories from "./../Categories/Categories";
-import { TokenContext } from './../../Context/TokenContext';
-
+import { TokenContext } from "./../../Context/TokenContext";
+import { cartContext } from "../../Context/cartContext";
+import { toast } from "sonner";
 
 function NavBar() {
-  let { token  , setToken} = useContext(TokenContext);
-  let navigate =useNavigate()
-  function logOut()
-  {
+  let { token, setToken } = useContext(TokenContext);
+  
+  let navigate = useNavigate();
+
+  let {numCartItems} =useContext(cartContext)
+  
+ 
+ 
+
+  
+
+  function logOut() {
     localStorage.removeItem("userToken");
     setToken(null);
     navigate("/login");
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar  navbar-expand-lg bg-body-tertiary">
         <div className="container">
           <Link className="navbar-brand fs-3" href="#">
             <img className="w-25" src={logo} alt="" /> Salla
@@ -43,16 +52,6 @@ function NavBar() {
                     to={"home"}
                   >
                     Home
-                  </Link>
-                </li>
-
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"cart"}
-                  >
-                    Cart
                   </Link>
                 </li>
 
@@ -89,24 +88,39 @@ function NavBar() {
             ) : null}
 
             <ul className="navbar-nav ms-auto">
-              <li className="nav-item align-self-center">
-                <Link to={"https://www.instagram.com"}>
-                  <i className="fa-brands fa-instagram mx-1"></i>
-                </Link>
-                <Link to={"https://www.facebook.com"}>
-                  <i className="fa-brands fa-facebook mx-1"></i>
-                </Link>
-                <Link to={"https://www.linkedin.com"}>
-                  <i class="fa-brands fa-linkedin mx-1"></i>
-                </Link>
-              </li>
-
               {token ? (
-                <li className="nav-item">
-                  <button onClick={logOut} className="nav-link" >
-                    LogOut
-                  </button>
-                </li>
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                  {/* WISHLIST */}
+                  <li className="nav-item">
+                    <Link className="nav-link position-relative" to={"wishlist"}></Link>
+                    <i class="text-muted bi bi-bag  fs-4 "></i>
+                      <span class="position-absolute small   top-8 start-75 translate-middle badge rounded-pill bg-success">
+                        {}
+                      </span>
+                  </li>
+
+                  {/* CART */}
+                  <li className="nav-item ">
+                    <Link
+                      className="nav-link position-relative"
+                      aria-current="page"
+                      to={"cart"}
+                    >
+                      <i class="text-muted bi bi-bag  fs-4 "></i>
+                      <span class="position-absolute small   top-8 start-75 translate-middle badge rounded-pill bg-success">
+                        {numCartItems}
+                      </span>
+                    </Link>
+                  </li>
+
+                  {/* LOGOUT */}
+                  <li className="nav-item ">
+                  <button onClick={logOut} className={`nav-link ${styles.Btn}`}>
+                      <div className={styles.sign}> <svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+                      <div className={` ${styles.text}`}>Logout</div>
+                    </button>
+                  </li>
+                </ul>
               ) : (
                 <>
                   <li className="nav-item">

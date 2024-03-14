@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer
-      className="bg-dark p-3 pt-2"
+      className="bg-dark p-3 py-2 "
       style={{ backgroundImage: `url(${bgImg})`, backgroundSize: "cover" }}
     >
       <div className="container">
-        <h2 className="text-white">Get Salla App</h2>
+        <h2 className="text-white pt-3">Get Salla App</h2>
         <p className="text-white">
           We will send you email with link to the app
         </p>
