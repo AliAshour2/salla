@@ -15,6 +15,7 @@ import ProtectedRoutes from "./Components/ProtectedRoutes/ProtextedRoutes";
 import ItemDetials from "./Components/ItemDetials/ItemDetials";
 import CheckOut from './Components/CheckOut/CheckOut';
 import Allorders from './Components/Allorders/Allorders';
+import WishList from "./Components/WishList/WishList";
 
 function App() {
   const routes = createBrowserRouter([
@@ -101,7 +102,14 @@ function App() {
               <Allorders/>
             </ProtectedRoutes>
           )
+        },
+        {
+          path : "wishlist" , 
+          element :(<ProtectedRoutes>
+            <WishList/>
+          </ProtectedRoutes>)
         }
+
     
       ],
     },

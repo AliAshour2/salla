@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export let cartContext = createContext();
 
@@ -8,7 +9,7 @@ let headers = {
 };
 
 function addToCart(productId) {
-  return axios
+  const promise = axios
     .post(
       "https://ecommerce.routemisr.com/api/v1/cart",
       {
@@ -19,40 +20,72 @@ function addToCart(productId) {
       }
     )
     .then((res) => {
-      // Increment cart item count after adding to cart
-
       return res;
     })
     .catch((error) => error);
+
+  toast.promise(promise, {
+    loading: "Adding Cart item",
+    success: "Cart Item Added",
+    error: "error adding item",
+  });
+  return promise;
 }
 
 function getCart() {
-  return axios.get("https://ecommerce.routemisr.com/api/v1/cart", {
+  return axios
+    .get("https://ecommerce.routemisr.com/api/v1/cart", {
       headers: headers,
     })
     .then((res) => res)
     .catch((error) => error);
 }
 
+// function deleteCartItem(productId) {
+//   return axios
+//     .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
+//       headers: headers,
+//     })
+//     .then((res) => res)
+//     .catch((error) => error);
+// }
+
 function deleteCartItem(productId) {
-  return axios
+  const promise = axios
     .delete(`https://ecommerce.routemisr.com/api/v1/cart/${productId}`, {
       headers: headers,
     })
     .then((res) => res)
     .catch((error) => error);
+
+  toast.promise(promise, {
+    loading: "Delteing Cart Item...",
+    success: "Cart Item Deleted",
+    error: "Error deleting from cart",
+  });
+
+  return promise;
 }
 
+function deleteAllCartitems() {
+  let promise = axios
+    .delete(`https://ecommerce.routemisr.com/api/v1/cart`, {
+      headers: headers,
+    })
+    .then((res) => res)
+    .catch((error) => error);
 
-function  deleteAllCartitems()
-{
-  return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart` , {
-    headers : headers ,
-  }).then((res)=> res).catch((error)=> error);
+  toast.promise(promise, {
+    loading: "Deleting all cart...",
+    success: "All Cart Deleted",
+    error: "Error deleting all cart",
+  });
+
+  return promise;
 }
 
 function updateCartProductQuantity(productId, count) {
-  return axios
+  const promise = axios
     .put(
       `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
       { count: count },
@@ -62,11 +95,17 @@ function updateCartProductQuantity(productId, count) {
     )
     .then((res) => res)
     .catch((error) => error);
+  toast.promise(promise, {
+    loading: "Updating Cart Item...",
+    success: "Item Updated",
+    error: "Error Updating Cart Item",
+  });
+  return promise;
 }
 
 export default function CartContextProvider(props) {
   const [cartId, setCartId] = useState(null);
-  const [numCartItems, setCartItems] = useState(null);
+  const [ numCartItems, setCartItems] = useState(null);
 
   async function getInitialCart() {
     let { data } = await getCart();
@@ -78,7 +117,6 @@ export default function CartContextProvider(props) {
     let { data } = await getCart();
     setCartItems(data?.numOfCartItems);
   }
-
 
   function cartOnlinePayment(shippingAddress) {
     return axios
@@ -108,7 +146,7 @@ export default function CartContextProvider(props) {
         numCartItems,
         setCartItems,
         updateCartItems,
-        deleteAllCartitems
+        deleteAllCartitems,
       }}
     >
       {props.children}

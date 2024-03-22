@@ -19,6 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import CartContextProvider from "./Context/cartContext";
+import WishlishContextProvider from "./Context/wishlist";
 /* -------------------------------------------------------------------------- */
 /*                              import libraries                              */
 /* -------------------------------------------------------------------------- */
@@ -29,6 +30,7 @@ let queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
+    <WishlishContextProvider>
     <CartContextProvider>
       <QueryClientProvider client={queryClient}>
         <TokenContextProvider>
@@ -36,5 +38,6 @@ root.render(
         </TokenContextProvider>
       </QueryClientProvider>
     </CartContextProvider>
+    </WishlishContextProvider>
   </React.StrictMode>
 );

@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Item.module.css";
-import { Link } from "react-router-dom";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
+import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import StarRatings from "react-star-ratings";
 import { cartContext } from "../../Context/cartContext";
 import { toast } from "sonner";
+import ItemPlaceholder from "./ItemPlaceholder";
+import { wishlistContext } from "../../Context/wishlist";
+import { TokenContext } from "./../../Context/TokenContext";
 
 function Item({ id, imageUrl, title, category, rating, price }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +19,9 @@ function Item({ id, imageUrl, title, category, rating, price }) {
     }, 1500); // Adjust the delay time as per your requirements
   }, []);
 
+  /* -------------------------------------------------------------------------- */
+  /*                               Cart FUNCTIONS                               */
+  /* -------------------------------------------------------------------------- */
   let { addToCart, setCartItems } = useContext(cartContext);
 
   async function addCart(id) {
@@ -23,11 +29,78 @@ function Item({ id, imageUrl, title, category, rating, price }) {
 
     if (addToCardResult.data.status === "success") {
       setCartItems(addToCardResult.data.numOfCartItems);
-      toast.success("Product Successfully Added");
-    } else if (addToCardResult.data.status === "faild") {
-      toast.error("Error Adding Product");
     }
   }
+
+  /* -------------------------------------------------------------------------- */
+  /*                            END OF CART FUNCTIONS                           */
+  /* -------------------------------------------------------------------------- */
+
+  
+
+
+
+
+  /* -------------------------------------------------------------------------- */
+  /*                             WISH LIST FUNCTIONS                            */
+  /* -------------------------------------------------------------------------- */
+
+  let { wishList ,addToWishList, getWishList, removeItemFromWishlist  , updateWishlistCount , setwishlistItemsCount} =
+    useContext(wishlistContext);
+
+    const [addedToWishList, setAddedToWishList] = useState(false);
+
+ 
+
+    useEffect(() => {
+      if (wishList) {
+        const isInWishlist = wishList.find((prod) => prod._id === id);
+        setAddedToWishList(isInWishlist !== undefined);
+      }
+    }, [id, wishList]);
+
+    
+    async function handleAddToWishlist(id) {
+      try {
+        let addToWishListResult = await addToWishList(id);
+        console.log("from add to wishlist"  , addToWishListResult);
+        if (addToWishListResult.data.status === "success") {
+          setAddedToWishList(true);
+          setwishlistItemsCount(addToWishListResult.data.count);
+          updateWishlistCount();
+          getWishList();
+        }
+      } catch (error) {
+        console.error("Error occurred while adding to wishlist:", error);
+      }
+    }
+    
+
+    async function handleRemoveFromWishlist(id)
+    {
+      try{
+        let removeFromWishlistReq = await removeItemFromWishlist(id);
+       
+          setAddedToWishList(false);
+          setwishlistItemsCount(removeFromWishlistReq.data.count);
+          updateWishlistCount();
+          getWishList();
+        
+      }catch(error)
+      {
+        console.error("Error occurred while remove to wishlist:", error);
+      }
+      
+    }
+    
+
+   
+    
+    
+  
+  /* -------------------------------------------------------------------------- */
+  /*                           END WISHLIST FUNCTIONS                           */
+  /* -------------------------------------------------------------------------- */
 
   return (
     <div className="col">
@@ -37,55 +110,7 @@ function Item({ id, imageUrl, title, category, rating, price }) {
 
           {isLoading && (
             <>
-              <div
-                className="placeholder-glow placeholder-glow w-100 mb-2"
-                style={{
-                  height: "200px",
-                  backgroundColor: "#f0f0f0",
-                  borderRadius: "10px",
-                }}
-              ></div>
-              {/* fisrt row */}
-              <div
-                className="placeholder-glow w-100 mb-2"
-                style={{
-                  height: "20px",
-
-                  borderRadius: "5px",
-                }}
-              >
-                <span
-                  className="placeholder w-100"
-                  style={{ height: "20px", borderRadius: "8px" }}
-                ></span>
-              </div>
-              {/* Sec row */}
-              <div
-                className="placeholder-glow w-100 mb-2"
-                style={{
-                  height: "20px",
-
-                  borderRadius: "5px",
-                }}
-              >
-                <span
-                  className="placeholder w-100"
-                  style={{ height: "20px", borderRadius: "8px" }}
-                ></span>
-              </div>
-              
-              {/* third row */}
-              <div className="d-flex justify-content-between placeholder-glow">
-                <span
-                  className="placeholder col-4"
-                  style={{ height: "25px", borderRadius: "8px" }}
-                ></span>
-
-                <button
-                  className="btn btn-success placeholder  disabled col-4"
-                  aria-disabled="true"
-                ></button>
-              </div>
+              <ItemPlaceholder />
             </>
           )}
 
@@ -119,21 +144,13 @@ function Item({ id, imageUrl, title, category, rating, price }) {
                       </div>
                     </Link>
                   </OverlayTrigger>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip>Add To Wich List</Tooltip>}
-                  >
-                    <Link
-                      className={`${styles.cartProductActionButton}`}
-                      data-bs-container="body"
-                      data-bs-toggle="popover"
-                      data-bs-placement="top"
-                      data-bs-content="Top popover"
-                    >
+                  <OverlayTrigger placement="top" overlay={<Tooltip>{addedToWishList ? "Remove from Wishlist" : "Add to Wishlist"}</Tooltip>}>
+                    <div onClick={() => addedToWishList ? handleRemoveFromWishlist(id) : handleAddToWishlist(id)} className={`${styles.cartProductActionButton}`}>
                       <div className="p-1">
-                        <i className="fa-regular fa-heart"></i>
+                       
+                        <i className={`fa-solid fa-heart ${addedToWishList ? styles.addedToWishlist : ""}`}></i>
                       </div>
-                    </Link>
+                    </div>
                   </OverlayTrigger>
                 </div>
               </div>

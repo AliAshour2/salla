@@ -6,6 +6,7 @@ import Categories from "./../Categories/Categories";
 import { TokenContext } from "./../../Context/TokenContext";
 import { cartContext } from "../../Context/cartContext";
 import { toast } from "sonner";
+import { wishlistContext } from "../../Context/wishlist";
 
 function NavBar() {
   let { token, setToken } = useContext(TokenContext);
@@ -13,7 +14,7 @@ function NavBar() {
   let navigate = useNavigate();
 
   let { numCartItems } = useContext(cartContext);
-
+  let {wishlistItemsCount} = useContext(wishlistContext)
   function logOut() {
     localStorage.removeItem("userToken");
     setToken(null);
@@ -94,7 +95,7 @@ function NavBar() {
                     >
                      <i className="text-muted fa-regular fa-heart fs-4"></i>
                       <span class="position-absolute small   top-8 start-75 translate-middle badge rounded-pill bg-success">
-                        {}
+                        {wishlistItemsCount}
                       </span>
                     </Link>
                   </li>

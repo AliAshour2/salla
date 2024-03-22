@@ -20,21 +20,38 @@ function Cart() {
     setCartDetials(data);
   }
 
+  // async function removeItem(productId) {
+  //   try {
+  //     setIsLaoding(true);
+  //     toast.loading("Removing Cart item");
+  //     let { data } = await deleteCartItem(productId);
+  //     setCartItems(data.numOfCartItems);
+  //     setCartDetials(data);
+  //     updateCartItems();
+  //   } catch (error) {
+  //     console.error("Error removing item from cart:", error);
+  //     toast.error("Sorry , There is error in removing this item");
+  //   } finally {
+  //     setIsLaoding(false);
+  //     toast.dismiss();
+  //     toast.success("Removed from the Cart");
+  //   }
+  // }
+
   async function removeItem(productId) {
     try {
       setIsLaoding(true);
-      toast.loading("Removing Cart item");
+      
       let { data } = await deleteCartItem(productId);
       setCartItems(data.numOfCartItems);
       setCartDetials(data);
       updateCartItems();
     } catch (error) {
       console.error("Error removing item from cart:", error);
-      toast.error("Sorry , There is error in removing this item");
+     
     } finally {
       setIsLaoding(false);
-      toast.dismiss();
-      toast.success("Removed from the Cart");
+      
     }
   }
 
@@ -42,34 +59,38 @@ function Cart() {
   {
     try {
       setIsLaoding(true);
-      toast.loading("Delete All Cart Items");
+      
       let {data} = await deleteAllCartitems();
       setCartItems(data.numOfCartItems);
       setCartDetials(data);
       updateCartItems();
     } catch (error) {
       console.error("Error deleting all cart items" , error);
-      toast.error("There is error delete all cart try again");
+      
     }finally{
-      toast.dismiss();
-      toast.success("All Cart Items Deleted ")
+      
     }
   }
+
+ 
+
+
+
 
   async function updateItemCount(productId, count) {
     let data;
     try {
       setIsLaoding(true);
-      toast.loading("Updating cart item...");
+      
       const response = await updateCartProductQuantity(productId, count);
       data = response.data;
-      toast.success("Cart item updated");
+      
     } catch (error) {
       console.error("Error updating the item:", error);
-      toast.error("There was an error updating the item");
+      
     } finally {
       setIsLaoding(false);
-      toast.dismiss();
+      
       if (data) {
         setCartDetials(data);
       }

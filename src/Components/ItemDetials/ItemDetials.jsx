@@ -12,11 +12,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { toast } from "sonner";
 import { cartContext } from "../../Context/cartContext";
+import ItemDetalisPlaceholder from './itemDetalisPlaceholder';
+
 
 function ItemDetials() {
   let params = useParams();
-  
-
 
   let {setCartItems } = useContext(cartContext)
 
@@ -24,8 +24,9 @@ function ItemDetials() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
   }
 
-  let { data,  error   } = useQuery("itemDetials", () =>
-    getItemDetials(params.id)
+  let { data,  error   , isLoading } = useQuery("itemDetials", () =>
+    getItemDetials(params.id) 
+    
   );
   console.log(data);
 
@@ -55,7 +56,7 @@ function ItemDetials() {
     slidesToScroll: 1,
   };
 
-  const [isLoading, setIsLoading] = useState(true);
+ 
 
   // useEffect(() => {
   //   // Simulate API call delay
@@ -70,29 +71,17 @@ function ItemDetials() {
 
   async function addCart(id) {
     
-
     let addToCardResult = await addToCart(id);
-
-    
 
     if (addToCardResult.data.status === "success") {
       setCartItems(addToCardResult.data.numOfCartItems);
-      toast.success("Product Successfully Added");
-     
-    } else if (addToCardResult.data.status === "faild") {
-      toast.error("Error Adding Product");
-    }
+    } 
   }
-
-   
-
-
- 
-
 
   return (
     <>
-      <section className="my-5">
+
+    {isLoading ? <ItemDetalisPlaceholder/> : <section className="my-5">
         <div className="container">
           <div className="row">
             <div className="ItemSlider col-md-6">
@@ -111,9 +100,8 @@ function ItemDetials() {
               </div>
             </div>
 
-            <div className={` col-md-6`}>
-              {!isLoading && (
-                <>
+            <div className={`col-md-6`}>
+            <>
                   <h2 className="fs-6 ">
                     <Link
                       className={` ${styles.mainColor} text-dark text-decoration-none`}
@@ -182,11 +170,15 @@ function ItemDetials() {
                     </Link>
                   </div>
                 </>
-              )}
             </div>
+
+           
           </div>
         </div>
-      </section>
+      </section>}
+      
+
+      
     </>
   );
 }
