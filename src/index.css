@@ -4,7 +4,7 @@
 :root{
   --main-color : #3afd3a ;
   --light-color : #f0f3f2 ;
-  --shadow : rgba(145,158,171,.2) 0px 2px 4px -1px , rgba(145,158,171,0.2) 0px 2px 5px 0px
+  --shadow : rgba(145,158,171,.2) 0px 2px 4px -1px , rgba(145,158,171,0.2) 0px 2px 5px 0px ;
   --font-family : 'Encode Sans Expanded' , sans-serif ;
   --rating-color : #ffc908 ;
 }
@@ -24,7 +24,7 @@ body{
 }
 
 .product:hover{
-  box-shadow:  var(--shadow);
+  box-shadow:var(--shadow);
   border: solid 1px var(--main-color);
 }
 
@@ -39,9 +39,7 @@ body{
   transform: translateY(0%);
 }
 
-.text-main{
 
-}
 
 .rating-color{
   color: var(--rating-color);
@@ -51,9 +49,7 @@ body{
   cursor: pointer;
 }
 
-.main-text{
 
-}
 
 .bg-main{
   background-color: var(--main-color) !important;

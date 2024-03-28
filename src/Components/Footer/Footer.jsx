@@ -3,14 +3,14 @@ import styles from "./Footer.module.css";
 import amazon from "../assets/images/amazon-pay.png";
 import paypal from "../assets/images/logo.png";
 import master from "../assets/images/money.png";
-import bgImg from "../assets/images/footerBgimg.svg";
+
 import appleStore from "../assets/images/applestore.svg"
 import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer
       className="bg-dark p-3 py-2 "
-      style={{ backgroundImage: `url(${bgImg})`, backgroundSize: "cover" }}
+      // style={{ backgroundImage: `url(${bgImg})`, backgroundSize: "cover" }}
     >
       <div className="container">
         <h2 className="text-white pt-3">Get Salla App</h2>
