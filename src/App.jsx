@@ -13,10 +13,10 @@ import { TokenContext } from "./Context/TokenContext";
 import { useContext, useEffect } from "react";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtextedRoutes";
 import ItemDetials from "./Components/ItemDetials/ItemDetials";
-import CheckOut from './Components/CheckOut/CheckOut';
-import Allorders from './Components/Allorders/Allorders';
+import CheckOut from "./Components/CheckOut/CheckOut";
+import Allorders from "./Components/Allorders/Allorders";
 import WishList from "./Components/WishList/WishList";
-
+import { Helmet } from "react-helmet";
 function App() {
   const routes = createBrowserRouter([
     {
@@ -88,29 +88,29 @@ function App() {
           ),
         },
         {
-          path :"checkout",
-          element:(
+          path: "checkout",
+          element: (
             <ProtectedRoutes>
-              <CheckOut/>
+              <CheckOut />
             </ProtectedRoutes>
-          )
+          ),
         },
         {
-          path :"allorders",
-          element:(
+          path: "allorders",
+          element: (
             <ProtectedRoutes>
-              <Allorders/>
+              <Allorders />
             </ProtectedRoutes>
-          )
+          ),
         },
         {
-          path : "wishlist" , 
-          element :(<ProtectedRoutes>
-            <WishList/>
-          </ProtectedRoutes>)
-        }
-
-    
+          path: "wishlist",
+          element: (
+            <ProtectedRoutes>
+              <WishList />
+            </ProtectedRoutes>
+          ),
+        },
       ],
     },
   ]);
@@ -121,9 +121,15 @@ function App() {
       setToken(localStorage.getItem("userToken"));
     }
   });
+
   return (
     <>
       <RouterProvider router={routes}></RouterProvider>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Salla</title>
+      </Helmet>
+      ;
     </>
   );
 }
