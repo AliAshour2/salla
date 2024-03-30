@@ -20,7 +20,7 @@ import { Helmet } from "react-helmet";
 function App() {
   const routes = createBrowserRouter([
     {
-      path: "",
+      path: "https://github.com/AliAshour2/salla/",
       element: <LayOut />,
       children: [
         {
