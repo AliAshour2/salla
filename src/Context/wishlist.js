@@ -43,9 +43,6 @@ function getWishList() {
 }
 
 
-
-
-
 function removeItemFromWishlist(productId) {
   const promise = axios
     .delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`, {
@@ -75,6 +72,11 @@ export default function WishlistContextProvider(props) {
       console.error("Error fetching wishlist:", error);
     }
   }
+
+  // async function updateWishlistState() {
+  //   const updatedWishListData = await getWishList(); // Fetch the updated list
+  //   setWishList(updatedWishListData.data); // Update the state in the context
+  // }
 
   async function updateWishlistCount()
   {

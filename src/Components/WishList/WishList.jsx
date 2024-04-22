@@ -11,6 +11,8 @@ function WishList() {
     token: localStorage.getItem("userToken"),
   };
 
+ 
+  
   
   function getWishList() {
     return axios.get("https://ecommerce.routemisr.com/api/v1/wishlist" , {headers:headers});

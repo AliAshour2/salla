@@ -108,7 +108,7 @@ function Cart() {
           <div className="mx-auto p-5">
             <div className="d-flex justify-content-between">
             <h2 className="mb-3">Cart</h2>
-            <button onClick={deleteAllCart}       className="btn btn-outline-danger btn-sm small">Delete All</button>
+            <button onClick={deleteAllCart}  disabled={cartDetails.numOfCartItems === 0}   className="btn btn-outline-danger btn-sm small">Delete All</button>
             </div>
             <div className="d-flex justify-content-between mb-4">
               <div className="text-muted">
@@ -210,7 +210,7 @@ function Cart() {
             ))}
           </div>
         </div>
-        <Link className={`btn btn-outline-success w-100 ${cartDetails.numOfCartItems === 0 && 'disabled'}`}  >
+        <Link   className={`btn btn-outline-success w-100 ${cartDetails.numOfCartItems === 0 && 'disabled'}`}  >
           Check Out
         </Link>
       </div>

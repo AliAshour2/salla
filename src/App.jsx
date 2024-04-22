@@ -20,7 +20,7 @@ import { Helmet } from "react-helmet";
 function App() {
   const routes = createBrowserRouter([
     {
-      path: "salla/",
+      path: "",
       element: <LayOut />,
       children: [
         {
@@ -129,7 +129,7 @@ function App() {
         <meta charSet="utf-8" />
         <title>Salla</title>
       </Helmet>
-      ;
+      
     </>
   );
 }

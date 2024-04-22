@@ -19,6 +19,10 @@ function Item({ id, imageUrl, title, category, rating, price }) {
     }, 1500); // Adjust the delay time as per your requirements
   }, []);
 
+
+  
+  
+
   /* -------------------------------------------------------------------------- */
   /*                               Cart FUNCTIONS                               */
   /* -------------------------------------------------------------------------- */
@@ -36,68 +40,64 @@ function Item({ id, imageUrl, title, category, rating, price }) {
   /*                            END OF CART FUNCTIONS                           */
   /* -------------------------------------------------------------------------- */
 
-  
-
-
-
-
   /* -------------------------------------------------------------------------- */
   /*                             WISH LIST FUNCTIONS                            */
   /* -------------------------------------------------------------------------- */
 
-  let { wishList ,addToWishList, getWishList, removeItemFromWishlist  , updateWishlistCount , setwishlistItemsCount} =
-    useContext(wishlistContext);
+  let {
+    wishList,
+    addToWishList,
+    getWishList,
+    removeItemFromWishlist,
+    updateWishlistCount,
+    setwishlistItemsCount,
+  } = useContext(wishlistContext);
 
-    const [addedToWishList, setAddedToWishList] = useState(false);
+  const [addedToWishList, setAddedToWishList] = useState(false);
 
- 
-
-    useEffect(() => {
-      if (wishList) {
-        const isInWishlist = wishList.find((prod) => prod._id === id);
-        setAddedToWishList(isInWishlist !== undefined);
-      }
-    }, [id, wishList]);
-
-    
-    async function handleAddToWishlist(id) {
-      try {
-        let addToWishListResult = await addToWishList(id);
-        console.log("from add to wishlist"  , addToWishListResult);
-        if (addToWishListResult.data.status === "success") {
-          setAddedToWishList(true);
-          setwishlistItemsCount(addToWishListResult.data.count);
-          updateWishlistCount();
-          getWishList();
-        }
-      } catch (error) {
-        console.error("Error occurred while adding to wishlist:", error);
+  useEffect(() => {
+    if (wishList) {
+      const isInWishlist = wishList.find((prod) => prod._id === id);
+      setAddedToWishList(isInWishlist !== undefined);
+      if(isInWishlist){
+        setAddedToWishList(true)
+      }else{
+        setAddedToWishList(false);
       }
     }
-    
+  }, [id, wishList]);
 
-    async function handleRemoveFromWishlist(id)
-    {
-      try{
-        let removeFromWishlistReq = await removeItemFromWishlist(id);
-       
-          setAddedToWishList(false);
-          setwishlistItemsCount(removeFromWishlistReq.data.count);
-          updateWishlistCount();
-          getWishList();
-        
-      }catch(error)
-      {
-        console.error("Error occurred while remove to wishlist:", error);
-      }
-      
-    }
-    
-
-   
-    
-    
   
+  
+
+  async function handleAddToWishlist(id) {
+    try {
+      let addToWishListResult = await addToWishList(id);
+      console.log("from add to wishlist", addToWishListResult);
+      if (addToWishListResult.data.status === "success") {
+        setAddedToWishList(true);
+        setwishlistItemsCount(addToWishListResult.data.count);
+        updateWishlistCount();
+        getWishList();
+      }
+    } catch (error) {
+      console.error("Error occurred while adding to wishlist:", error);
+    }
+  }
+
+  async function handleRemoveFromWishlist(id) {
+    try {
+      let removeFromWishlistReq = await removeItemFromWishlist(id);
+
+      setAddedToWishList(false);
+      setwishlistItemsCount(removeFromWishlistReq.data.count);
+      updateWishlistCount();
+      getWishList();
+    } catch (error) {
+      console.error("Error occurred while remove to wishlist:", error);
+    }
+  }
+
   /* -------------------------------------------------------------------------- */
   /*                           END WISHLIST FUNCTIONS                           */
   /* -------------------------------------------------------------------------- */
@@ -149,9 +149,12 @@ function Item({ id, imageUrl, title, category, rating, price }) {
                       <div className="p-1">
                        
                         <i className={`fa-solid fa-heart ${addedToWishList ? styles.addedToWishlist : ""}`}></i>
+                        
                       </div>
                     </div>
                   </OverlayTrigger>
+
+                  
                 </div>
               </div>
               <div
